@@ -1,5 +1,6 @@
 # Explore US Bikeshare Data
-
+## Notes
+This project uses city bike data for analysis.
 ## Project Overview
 This is a command-line Python application that explores data from US bikeshare systems in Chicago, New York City, and Washington. Users can filter the data by city, month, and day to view statistics on bike usage patterns.
 
