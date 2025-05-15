@@ -1,4 +1,3 @@
-"""
 Explore US Bikeshare Data.
 
 This script allows the user to explore data related to bikeshare systems
@@ -8,7 +7,9 @@ The user can filter the data by city, month, and day of the week.
 The program computes descriptive statistics and displays the raw data on request.
 
 Author: Jana Abdulaal
-"""
+import time
+import pandas as pd
+
 import time
 import pandas as pd
 
@@ -19,16 +20,13 @@ CITY_DATA = {
 }
 
 def get_filters():
-    """
     Asks user to specify a city, month, and day to analyze.
 
     Returns:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no filter
         (str) day - name of the day to filter by, or "all" to apply no filter
-    """
 
-    """Asks user to specify a city, month, and day to analyze."""
     print('Hello! Let\'s explore some US bikeshare data!')
 
     while True:
@@ -53,11 +51,34 @@ def get_filters():
             break
         else:
             print("Invalid input. Please enter a valid day.")
+def get_valid_input(prompt, valid_options):
+    Repeatedly prompt the user until a valid input is received.
+
+    Args:
+        prompt (str): The message to display to the user
+        valid_options (list): List of valid options (strings)
+
+    Returns:
+        str: A valid user input
+    while True:
+        response = input(prompt).lower()
+        if response in valid_options:
+            return response
+        print(f"Invalid input. Please choose from: {valid_options}")
+
+def get_filters():
+    print('Hello! Let\'s explore some US bikeshare data!')
+
+    city = get_valid_input("Would you like to see data for Chicago, New York City, or Washington? ",
+                           ['chicago', 'new york city', 'washington'])
+    month = get_valid_input("Which month? January, February, March, April, May, June or 'all'? ",
+                            ['january', 'february', 'march', 'april', 'may', 'june', 'all'])
+    day = get_valid_input("Which day? Monday, Tuesday, ... Sunday or 'all'? ",
+                          ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all'])
 
     return city, month, day
 
 def load_data(city, month, day):
-    """
     Loads data for the specified city and filters by month and day if applicable.
 
     Args:
@@ -66,9 +87,7 @@ def load_data(city, month, day):
         (str) day - name of the day to filter by, or "all" to apply no filter
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
-    """
 
-    """Loads data for the specified city and filters by month and day."""
     df = pd.read_csv(CITY_DATA[city])
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month'] = df['Start Time'].dt.month
@@ -85,7 +104,6 @@ def load_data(city, month, day):
     return df
 
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
     print('\nCalculating The Most Frequent Times of Travel...')
     start_time = time.time()
     print('Most Common Month:', df['month'].mode()[0])
@@ -93,18 +111,24 @@ def time_stats(df):
     print('Most Common Start Hour:', df['Start Time'].dt.hour.mode()[0])
     print("\nThis took %s seconds." % (time.time() - start_time))
 
+def common_start_station(df):
+    print('Most Common Start Station:', df['Start Station'].mode()[0])
+
+def common_end_station(df):
+    print('Most Common End Station:', df['End Station'].mode()[0])
+
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
     print('\nCalculating The Most Popular Stations and Trip...')
     start_time = time.time()
     print('Most Common Start Station:', df['Start Station'].mode()[0])
     print('Most Common End Station:', df['End Station'].mode()[0])
+    common_start_station(df)
+    common_end_station(df)
     df['Trip'] = df['Start Station'] + " to " + df['End Station']
     print('Most Common Trip:', df['Trip'].mode()[0])
     print("\nThis took %s seconds." % (time.time() - start_time))
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
     print('\nCalculating Trip Duration...')
     start_time = time.time()
     print('Total Travel Time:', df['Trip Duration'].sum())
@@ -112,7 +136,6 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
 
 def user_stats(df):
-    """Displays statistics on bikeshare users."""
     print('\nCalculating User Stats...')
     start_time = time.time()
     print('User Types:\n', df['User Type'].value_counts())
