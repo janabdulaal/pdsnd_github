@@ -1,4 +1,5 @@
 # Explore US Bikeshare Data
+- Cleaned code for readability.
 ## Notes
 This project uses city bike data for analysis.
 ## Project Overview
