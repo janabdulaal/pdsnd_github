@@ -1,13 +1,13 @@
 import time
 import pandas as pd
-
+# Minor formatting change
 # Mapping of city names to their CSV data files
 CITY_DATA = {
     'chicago': 'chicago.csv',
     'new york city': 'new_york_city.csv',
     'washington': 'washington.csv'
 }
-
+# Minor formatting change
 def get_valid_input(prompt, valid_options):
     """
     Repeatedly prompt the user until a valid input is received.
@@ -24,7 +24,7 @@ def get_valid_input(prompt, valid_options):
         if response in valid_options:
             return response
         print(f"Invalid input. Please choose from: {valid_options}")
-
+#this is a note
 def get_filters():
     """Asks user to specify a city, month, and day to analyze."""
     print('Hello! Let\'s explore some US bikeshare data!')
@@ -89,7 +89,7 @@ def trip_duration_stats(df):
     print('Total Travel Time:', df['Trip Duration'].sum())
     print('Average Travel Time:', df['Trip Duration'].mean())
     print("\nThis took %s seconds." % (time.time() - start_time))
-
+# Temporary refactoring note
 def user_stats(df):
     """Displays statistics on bikeshare users."""
     print('\nCalculating User Stats...')
@@ -102,6 +102,8 @@ def user_stats(df):
         print('Most Recent Birth Year:', int(df['Birth Year'].max()))
         print('Most Common Birth Year:', int(df['Birth Year'].mode()[0]))
     print("\nThis took %s seconds." % (time.time() - start_time))
+# Temporary refactoring note
+
 
 def display_raw_data(df):
     """Displays raw data 5 rows at a time upon user request."""
@@ -116,6 +118,7 @@ def display_raw_data(df):
         else:
             print("Invalid input. Please type 'yes' or 'no'.")
 
+# Temporary refactoring note
 def main():
     while True:
         city, month, day = get_filters()
@@ -131,3 +134,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+# Temporary refactoring note
+
+
